@@ -1,5 +1,11 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
+import AppLayout from './layouts/app-layout'
+import LandingPage from './pages/landing'
+import Dashboard from './pages/dashboard'
+import Auth from './pages/auth'
+import Link from './pages/link'
+import RedirectLink from './pages/redirect-link'
 
 const router=createBrowserRouter([
   {
@@ -8,6 +14,22 @@ const router=createBrowserRouter([
       {
         path:'/',
         element:<LandingPage/>  
+      },
+      {
+        path:'/dashboard',
+        element:<Dashboard/>  
+      },
+      {
+        path:'/auth',
+        element:<Auth/>  
+      },
+      {
+        path:'/link/:id',
+        element:<Link/>  
+      },
+      {
+        path:'/:id',
+        element:<RedirectLink/>  
       }
     ]
 
@@ -15,11 +37,7 @@ const router=createBrowserRouter([
 ])
 
 function App() {
-
-
-  return (
-    <div className="text-2xl">HELLO</div>
-  )
+  return<RouterProvider router={router}/>
 }
 
 export default App
