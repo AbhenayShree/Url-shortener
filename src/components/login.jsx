@@ -6,12 +6,14 @@ import {
     CardHeader,
     CardTitle,
   } from "@/components/ui/card";
-  import { Input } from "./ui/input";
-  import { Button } from "./ui/button";
-  import { BeatLoader } from "react-spinners";
-  import Error from "./error";
-  import { useState } from "react";
-  import * as Yup from "yup";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { BeatLoader } from "react-spinners";
+import Error from "./error";
+import { useEffect, useState } from "react";
+import * as Yup from "yup";
+import useFetch from "@/hooks/use-fetch";
+import { login } from "@/db/apiAuth";
   
   const Login = () => {
     const [errors, setErrors] = useState({});
@@ -25,10 +27,25 @@ import {
       const { name, value } = e.target;
       setFormData((prevState) => ({
         ...prevState,
+
+
         [name]: value,
       }));
     };
-  
+
+    const{data,error,loading,fn:fnLogin}=useFetch(login,formData);
+    
+    useEffect(()=>{
+        console.log(data);
+        // if(error===null && data){
+        //   //  
+        // }
+
+        
+    }, [data,error])
+
+
+
     const handleLogin = async () => {
       setErrors({});
       setIsLoading(true);
@@ -44,6 +61,7 @@ import {
   
         await schema.validate(formData, { abortEarly: false });
         // API call
+        await fnLogin()
       } catch (e) {
         const newErrors = {};
   
@@ -61,6 +79,7 @@ import {
         <CardHeader>
           <CardTitle>Login</CardTitle>
           <CardDescription>to your account if you have one already</CardDescription>
+          {error && <Error message={error.message}/>}
         </CardHeader>
         <CardContent className="space-y-2">
           <div className="space-y-1">
@@ -84,7 +103,7 @@ import {
         </CardContent>
         <CardFooter>
           <Button onClick={handleLogin}>
-            {isLoading ? <BeatLoader size={10} color="#36d7b7" /> : "Login"}
+            {loading? <BeatLoader size={10} color="#36d7b7" /> : "Login"}
           </Button>
         </CardFooter>
       </Card>
