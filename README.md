@@ -9,16 +9,23 @@ The backend is powered by Supabase, which handles data storage and management.
 
 Features
 URL Shortening: Quickly convert long URLs into short links.
+
 Redirection: Accessing the shortened URL redirects users to the original long URL.
+
 User-Friendly Interface: Built with a responsive design using Tailwind CSS for an optimal user experience.
+
 Database Integration: Utilizes Supabase for storing URL mappings securely.
+
 Analytics:Track the number of times a shortened URL has been accessed.
 
 Technologies Used
+
 Frontend: 
   - React JS
   - Tailwind CSS
+
 Backend: 
   - Supabase (PostgreSQL database)
+    
 Deployment: 
   - Vercel 
